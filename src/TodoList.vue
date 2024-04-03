@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 
 let todoId = 0
 const inputTodo = ref('')
-const todos = ref<{ id: number; title: string }[]>([])
+const todos: Ref<{ id: number; title: string }[]> = ref([])
 
 function addTodo() {
   todos.value.push({ id: todoId++, title: inputTodo.value })
