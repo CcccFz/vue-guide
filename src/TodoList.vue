@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const inputTitle = ref('')
-const todos = ref([])
-let id = 0
+let todoId = 0
+const inputTodo = ref('')
+const todos = ref<{ id: number; title: string }[]>([])
 
 function addTodo() {
-  todos.value.push({ title: inputTitle.value, id: ++id })
-  inputTitle.value = ''
+  todos.value.push({ id: todoId++, title: inputTodo.value })
+  inputTodo.value = ''
 }
-
-function removeTodo(idx) {
+function delTodo(idx: number) {
   todos.value.splice(idx, 1)
-  id--
 }
 </script>
 
@@ -20,14 +18,13 @@ function removeTodo(idx) {
   <div>
     <form @submit.prevent="addTodo">
       <label for="add-todo"></label>
-      <input id="add-todo" v-model="inputTitle" />
+      <input name="add-todo" v-model="inputTodo" />
       <button>New</button>
+      <ul>
+        <li v-for="(todo, idx) of todos" :key="todo.id">
+          {{ todo.title }} <button @click="delTodo(idx)">-</button>
+        </li>
+      </ul>
     </form>
-    <ul>
-      <li v-for="(todo, idx) of todos" :key="todo.id">
-        {{ todo.title }}
-        <button @click="removeTodo(idx)">-</button>
-      </li>
-    </ul>
   </div>
 </template>
