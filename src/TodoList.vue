@@ -18,7 +18,7 @@ function delTodo(idx: number) {
   <div>
     <form @submit.prevent="addTodo">
       <label for="add-todo"></label>
-      <input name="add-todo" v-model="inputTodo" />
+      <input id="add-todo" v-model="inputTodo" />
       <button>New</button>
       <ul>
         <li v-for="(todo, idx) of todos" :key="todo.id">
